@@ -1,0 +1,31 @@
+This is a pure Python implementation of BCrypt, based on
+Damien Miller's jBCrypt library <http://www.mindrot.org/projects/jBCrypt/>.
+
+Please use <http://www.mindrot.org/projects/py-bcrypt/> if you wish to use
+BCrypt in Python.
+
+WARNING: This code is not suitable for cryptographic use due to serious
+performance issues when using a log_rounds value that is necessary for
+today's systems. Utilizing a lower log_rounds value in this module will not
+equate to the same computation time in C and Java implementations, thus
+considerably negating the benefits of using an adaptive crytographic hash
+function.
+
+A simple example that demonstrates most of the features:
+
+	import bcrypt
+
+	# Hash a password for the first time
+	hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+
+	# gensalt's log_rounds parameter determines the complexity
+	# the work factor is 2**log_rounds, and the default is 12
+	hashed = bcrypt.hashpw(password, bcrypt.gensalt(10))
+
+	# Check that an unencrypted password matches one that has
+	# previously been hashed
+	if bcrypt.hashpw(plaintext, hashed) == hashed:
+		print "It matches"
+	else:
+		print "It does not match"
+
