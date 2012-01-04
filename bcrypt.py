@@ -649,7 +649,7 @@ if __name__ == '__main__':
     import sys
 
     if len(sys.argv[1:]) != 2:
-        print(__usage__)
+        print(__usage__ % (sys.argv[0], ))
         sys.exit(1)
 
     password = sys.argv[1]
@@ -658,5 +658,5 @@ if __name__ == '__main__':
     hashed = hashpw(password, gensalt(log_rounds=rounds))
 
     print('Hashed: %s' % (hashed, ))
-    assert checkpw(sys.argv[1], hashed) == True, 'Password hash incorrect'
+    assert checkpw(password, hashed) == True, 'Password hash incorrect'
 
